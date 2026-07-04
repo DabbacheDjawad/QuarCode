@@ -1,67 +1,42 @@
+// components/Footer.tsx
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import Icon from "./Icon";
-
-// ── Types ─────────────────────────────────────────────────────────────────────
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 type FooterLink = { label: string; href: string };
-
-type FooterColumn = {
-  heading: string;
-  links: FooterLink[];
-};
+type FooterColumn = { heading: string; links: readonly FooterLink[] };
 
 type FooterProps = {
+  /** Override the tagline (e.g. the About page has its own tagline). Falls back to the locale default. */
   tagline?: string;
-  columns?: FooterColumn[];
+  /** Override the column set. Falls back to the locale default. */
+  columns?: readonly FooterColumn[];
+  /** Show / hide the newsletter block. Defaults to true. */
   showNewsletter?: boolean;
+  /** Override the copyright line. Falls back to the locale default. */
   copyright?: string;
 };
 
-// ── Defaults ──────────────────────────────────────────────────────────────────
-
-const defaultColumns: FooterColumn[] = [
-  {
-    heading: "Company",
-    links: [
-      { label: "About Us",    href: "/about"   },
-      { label: "Careers",     href: "#"         },
-      { label: "Our Process", href: "#"         },
-      { label: "Contact",     href: "/contact"  },
-    ],
-  },
-  {
-    heading: "Connect",
-    links: [
-      { label: "LinkedIn",    href: "#" },
-      { label: "GitHub",      href: "#" },
-      { label: "Twitter / X", href: "#" },
-      { label: "Dribbble",    href: "#" },
-    ],
-  },
-];
-
-// ── Component ─────────────────────────────────────────────────────────────────
-
 export default function Footer({
-  tagline = "Engineering Excellence from Algeria. Building the next generation of digital infrastructure.",
-  columns = defaultColumns,
+  tagline,
+  columns,
   showNewsletter = true,
-  copyright = "© 2024 Quarcode. Engineering Excellence from Algeria.",
-}: FooterProps) {
-  const totalCols = 1 + columns.length + (showNewsletter ? 1 : 0);
-  const gridCols =
-    totalCols <= 3
-      ? "md:grid-cols-3"
-      : totalCols === 4
-      ? "md:grid-cols-4"
-      : "md:grid-cols-5";
+  copyright,
+}: FooterProps = {}) {
+  const { t } = useLanguage();
+  const f = t.footer;
+
+  // Callers can supply overrides; if not provided, fall back to locale defaults
+  const resolvedTagline = tagline ?? f.tagline;
+  const resolvedColumns = (columns ?? f.columns) as readonly FooterColumn[];
+  const resolvedCopyright = copyright ?? f.copyright;
 
   return (
     <footer className="w-full py-section-gap bg-surface-container-lowest border-t border-outline-variant/20">
-      <div
-        className={`grid grid-cols-1 ${gridCols} gap-gutter max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop`}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
         {/* Brand */}
         <div>
           <Link href="/" className="flex items-center gap-3 mb-stack-md">
@@ -76,11 +51,13 @@ export default function Footer({
               Quarcode
             </span>
           </Link>
-          <p className="text-on-surface-variant text-sm leading-relaxed">{tagline}</p>
+          <p className="text-on-surface-variant text-sm leading-relaxed">
+            {resolvedTagline}
+          </p>
         </div>
 
         {/* Dynamic columns */}
-        {columns.map((col) => (
+        {resolvedColumns.map((col) => (
           <div key={col.heading}>
             <h4 className="font-label-md text-label-md font-bold text-primary mb-stack-md uppercase tracking-widest">
               {col.heading}
@@ -104,21 +81,21 @@ export default function Footer({
         {showNewsletter && (
           <div>
             <h4 className="font-label-md text-label-md font-bold text-primary mb-stack-md uppercase tracking-widest">
-              Newsletter
+              {f.newsletter.heading}
             </h4>
             <p className="text-sm text-on-surface-variant mb-stack-md leading-relaxed">
-              Stay updated with our latest insights.
+              {f.newsletter.body}
             </p>
             <div className="flex gap-2">
               <input
                 type="email"
-                placeholder="Email"
-                aria-label="Email for newsletter"
+                placeholder={f.newsletter.emailPlaceholder}
+                aria-label={f.newsletter.emailLabel}
                 className="bg-surface-container border border-outline-variant rounded-lg px-4 py-2 w-full text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary transition-colors"
               />
               <button
                 type="submit"
-                aria-label="Subscribe"
+                aria-label={f.newsletter.subscribeLabel}
                 className="bg-primary-container text-on-primary-container p-2 rounded-lg hover:opacity-90 transition-opacity shrink-0"
               >
                 <Icon name="send" />
@@ -130,13 +107,19 @@ export default function Footer({
 
       {/* Bottom bar */}
       <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-section-gap pt-stack-lg border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4">
-        <span className="text-on-surface-variant text-sm">{copyright}</span>
+        <span className="text-on-surface-variant text-sm">{resolvedCopyright}</span>
         <div className="flex gap-6">
-          <Link href="#" className="text-on-surface-variant hover:text-primary text-sm transition-colors">
-            Privacy Policy
+          <Link
+            href="#"
+            className="text-on-surface-variant hover:text-primary text-sm transition-colors"
+          >
+            {f.privacy}
           </Link>
-          <Link href="#" className="text-on-surface-variant hover:text-primary text-sm transition-colors">
-            Terms of Service
+          <Link
+            href="#"
+            className="text-on-surface-variant hover:text-primary text-sm transition-colors"
+          >
+            {f.terms}
           </Link>
         </div>
       </div>

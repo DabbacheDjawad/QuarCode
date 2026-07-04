@@ -1,3 +1,8 @@
+// components/About/MissionVision.tsx
+"use client";
+
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+
 type CardProps = {
   decorIcon: string;
   accentIcon: string;
@@ -9,7 +14,7 @@ type CardProps = {
 function MissionCard({ decorIcon, accentIcon, accentColor, title, body }: CardProps) {
   return (
     <div className="p-stack-lg rounded-xl bg-surface border border-outline-variant/30 relative overflow-hidden card-glow transition-all duration-300">
-      {/* Large ghost icon decoration — filled variant via inline style */}
+      {/* Large ghost icon decoration */}
       <div className="absolute top-4 right-4 opacity-10 pointer-events-none">
         <span
           className="material-symbols-outlined text-[120px]"
@@ -34,6 +39,9 @@ function MissionCard({ decorIcon, accentIcon, accentColor, title, body }: CardPr
 }
 
 export default function MissionVision() {
+  const { t } = useLanguage();
+  const mv = t.missionVision;
+
   return (
     <section className="py-section-gap bg-surface-container relative">
       <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
@@ -41,15 +49,15 @@ export default function MissionVision() {
           decorIcon="rocket_launch"
           accentIcon="target"
           accentColor="text-primary"
-          title="Our Mission"
-          body="To empower Algerian enterprises with world-class software that drives growth, streamlines operations, and fosters local innovation. We are committed to nurturing the next generation of Algerian engineers through mentorship and high-standard project execution."
+          title={mv.mission.title}
+          body={mv.mission.body}
         />
         <MissionCard
           decorIcon="visibility"
           accentIcon="auto_awesome"
           accentColor="text-tertiary"
-          title="Our Vision"
-          body="To become the definitive leader in Algerian digital transformation, recognized globally as the hub for engineering excellence in the Maghreb region. We envision a future where 'Built by Quarcode' is synonymous with uncompromising quality."
+          title={mv.vision.title}
+          body={mv.vision.body}
         />
       </div>
     </section>

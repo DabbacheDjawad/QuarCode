@@ -1,51 +1,52 @@
-import Image from "next/image";
+// components/About/OurStory.tsx
+"use client";
+
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export default function OurStory() {
+  const { t } = useLanguage();
+  const s = t.ourStory;
+
+  const milestones = [
+    { year: s.milestone1Year, label: s.milestone1Label },
+    { year: s.milestone2Year, label: s.milestone2Label },
+    { year: s.milestone3Year, label: s.milestone3Label },
+  ];
+
   return (
     <section className="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter">
-        {/* Text column */}
-        <div className="md:col-span-8 flex flex-col justify-center">
-          <h2 className="font-headline-md text-headline-md mb-6">
-            Our Story
-          </h2>
-          <p className="font-body-md text-body-md text-on-surface-variant mb-6">
-            Born from a shared vision in Algiers, Quarcode was founded by
-            engineers who recognized a gap between standard enterprise IT and
-            the specific, high-velocity needs of the Algerian tech ecosystem.
-            We didn&apos;t want to just build software; we wanted to establish a
-            benchmark for engineering excellence that proves Algerian talent
-            can compete on any global stage.
-          </p>
-          <p className="font-body-md text-body-md text-on-surface-variant">
-            Since our inception, we have scaled from a boutique consulting
-            group into a full-cycle product development partner, helping
-            local businesses and government entities transform through
-            robust, scalable, and secure digital infrastructure.
-          </p>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-section-gap items-center">
+        {/* Left — copy */}
+        <div>
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-outline-variant/30 bg-surface-container mb-6">
+            <span className="w-2 h-2 rounded-full bg-primary" />
+            <span className="font-code-sm text-code-sm uppercase tracking-widest text-on-surface-variant">
+              {s.badge}
+            </span>
+          </div>
+
+          <h2 className="font-headline-md text-headline-md mb-6">{s.headline}</h2>
+
+          <div className="space-y-4 text-on-surface-variant font-body-md text-body-md">
+            <p>{s.body1}</p>
+            <p>{s.body2}</p>
+          </div>
         </div>
 
-        {/* Image card */}
-        <div className="md:col-span-4 h-full min-h-[400px] rounded-xl overflow-hidden relative group">
-          {/* Gradient overlay fades bottom of image into background */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
-
-          <Image
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2Ps5hiBggsxKjZ9nkPCal9enQ1x1fPPWmQ7hCLa9SCJRb9MBbRiUfoSohdQtlo_p3LRaMEdPgd_-5WINA_hnYfn8zbhooEZfqhI-zdheOu2RjjNUl6GXTrma7OkGZKAG-iJsPLoy6gFJ17RiP_d0YYoz8Hv1dnF-hbcS1Za2pOUgTmXQalW-SO8glBw8nhbm2TzJJ1gwb3KW90mf58OIdYmPovEAwW_k7_Jn3-16ID-gAgnEzRVw0GRw6GHVtfd18qLq7q3pHLgy4"
-            alt="Modern office space in Algiers with sleek glass partitions reflecting blue and purple neon lights"
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-
-          {/* Caption overlay */}
-          <div className="absolute bottom-6 left-6 z-20">
-            <div className="font-headline-sm text-headline-sm font-bold">
-              Est. 2021
+        {/* Right — timeline milestones */}
+        <div className="relative flex flex-col gap-8 ps-8 border-s border-outline-variant/30">
+          {milestones.map((m, i) => (
+            <div key={i} className="relative">
+              {/* dot on the timeline line */}
+              <span className="absolute -start-[calc(2rem+1px)] top-1 w-3 h-3 rounded-full bg-primary border-2 border-background" />
+              <div className="font-headline-sm text-headline-sm text-primary mb-1">
+                {m.year}
+              </div>
+              <div className="font-label-md text-label-md text-on-surface-variant">
+                {m.label}
+              </div>
             </div>
-            <div className="font-label-md text-label-md text-primary">
-              Headquartered in Algiers
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

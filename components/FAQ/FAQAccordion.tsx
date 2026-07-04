@@ -1,21 +1,126 @@
+// components/FAQ/FAQAccordion.tsx
 "use client";
 
 import { useState } from "react";
 import Icon from "../Icon";
 
+// ── Answer shape (mirrors the faqItems answer object in translations) ─────────
+
+export type AnswerData = {
+  intro: string;
+  tags: readonly string[];
+  bullets: readonly string[];
+  steps: readonly string[];
+  checks: readonly string[];
+  note: string;
+};
+
 export type AccordionItem = {
   id: string;
   icon: string;
   question: string;
-  answer: React.ReactNode;
+  answer: AnswerData;
+  /** highlight text inside intro — e.g. "30,000 DA" or "fully responsive" */
+  highlights?: readonly string[];
 };
 
 type Props = {
   items: AccordionItem[];
 };
 
+// ── Small answer building blocks ─────────────────────────────────────────────
+
+function Tag({ label }: { label: string }) {
+  return (
+    <span className="px-2 py-1 bg-surface-variant text-code-sm font-code-sm rounded border border-outline-variant/30 uppercase tracking-tighter">
+      {label}
+    </span>
+  );
+}
+
+function Bullet({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-start gap-2">
+      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+      <span>{children}</span>
+    </li>
+  );
+}
+
+function Step({ number, children }: { number: number; children: React.ReactNode }) {
+  return (
+    <li className="flex items-start gap-3">
+      <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10 text-primary text-code-sm font-code-sm shrink-0 mt-0.5">
+        {number}
+      </span>
+      <span>{children}</span>
+    </li>
+  );
+}
+
+function Check({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-center gap-2">
+      <span
+        className="text-tertiary text-[16px] material-symbols-outlined"
+        style={{ fontVariationSettings: "'FILL' 1" }}
+      >
+        check_circle
+      </span>
+      <span>{children}</span>
+    </li>
+  );
+}
+
+// ── Renders a structured AnswerData object as JSX ─────────────────────────────
+
+function AnswerBody({ answer }: { answer: AnswerData }) {
+  return (
+    <div className="space-y-3">
+      {answer.intro && <p>{answer.intro}</p>}
+
+      {answer.tags.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-3">
+          {answer.tags.map((tag) => (
+            <Tag key={tag} label={tag} />
+          ))}
+        </div>
+      )}
+
+      {answer.bullets.length > 0 && (
+        <ul className="mt-3 space-y-2">
+          {answer.bullets.map((b) => (
+            <Bullet key={b}>{b}</Bullet>
+          ))}
+        </ul>
+      )}
+
+      {answer.steps.length > 0 && (
+        <ol className="mt-3 space-y-2">
+          {answer.steps.map((s, i) => (
+            <Step key={i} number={i + 1}>{s}</Step>
+          ))}
+        </ol>
+      )}
+
+      {answer.checks.length > 0 && (
+        <ul className="space-y-2">
+          {answer.checks.map((c) => (
+            <Check key={c}>{c}</Check>
+          ))}
+        </ul>
+      )}
+
+      {answer.note && (
+        <p className="mt-3 text-sm">{answer.note}</p>
+      )}
+    </div>
+  );
+}
+
+// ── Main accordion ────────────────────────────────────────────────────────────
+
 export default function FaqAccordion({ items }: Props) {
-  // First item open by default
   const [openId, setOpenId] = useState<string>(items[0]?.id ?? "");
 
   const toggle = (id: string) => setOpenId((prev) => (prev === id ? "" : id));
@@ -60,7 +165,7 @@ export default function FaqAccordion({ items }: Props) {
               />
             </button>
 
-            {/* Body — CSS-animated height via grid trick (avoids JS height calc) */}
+            {/* Body — CSS height via grid trick */}
             <div
               id={`faq-body-${item.id}`}
               role="region"
@@ -69,8 +174,8 @@ export default function FaqAccordion({ items }: Props) {
               }`}
             >
               <div className="overflow-hidden">
-                <div className="px-6 pb-6 ml-6 border-l-2 border-primary/20 pl-6 space-y-4 text-on-surface-variant text-body-md font-body-md leading-relaxed">
-                  {item.answer}
+                <div className="px-6 pb-6 ms-6 border-s-2 border-primary/20 ps-6 space-y-4 text-on-surface-variant text-body-md font-body-md leading-relaxed">
+                  <AnswerBody answer={item.answer} />
                 </div>
               </div>
             </div>

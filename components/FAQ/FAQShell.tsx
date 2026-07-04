@@ -1,3 +1,4 @@
+// components/FAQ/FAQShell.tsx
 "use client";
 
 import { useState } from "react";

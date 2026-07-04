@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { hankenGrotesk, inter, geist } from "../fonts";
 import "./globals.css";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 export const metadata: Metadata = {
   title: "Quarcode | Engineering Digital Excellence",
@@ -24,7 +25,9 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-background text-on-background font-body-md overflow-x-hidden antialiased">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

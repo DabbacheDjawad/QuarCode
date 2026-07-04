@@ -1,30 +1,21 @@
+// components/Navbar.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Icon from "./Icon";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 type Page = "services" | "about" | "work" | "contact" | "pricing";
-
-type NavLink = {
-  href: string;
-  label: string;
-  page: Page;
-};
-
-const navLinks: NavLink[] = [
-  { href: "/Services", label: "Services", page: "services" },
-  { href: "/About",    label: "About",    page: "about"    },
-  { href: "/Pricings",     label: "Pricings",     page: "pricing"     },
-  { href: "/Contact",  label: "Contact",  page: "contact"  },
-];
 
 type NavbarProps = {
   activePage?: Page;
 };
 
 export default function Navbar({ activePage }: NavbarProps) {
+  const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -34,10 +25,18 @@ export default function Navbar({ activePage }: NavbarProps) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu on route change (Next.js soft navigation)
   useEffect(() => {
     setMobileOpen(false);
   }, [activePage]);
+
+  // Build nav links from translations
+  type NavLink = { href: string; label: string; page: Page };
+  const navLinks: NavLink[] = [
+    { href: "/Services", label: t.nav.services, page: "services" },
+    { href: "/About",    label: t.nav.about,    page: "about"    },
+    { href: "/Pricings", label: t.nav.pricing,  page: "pricing"  },
+    { href: "/Contact",  label: t.nav.contact,  page: "contact"  },
+  ];
 
   return (
     <nav
@@ -78,15 +77,19 @@ export default function Navbar({ activePage }: NavbarProps) {
               </Link>
             );
           })}
+
+          {/* Language switcher */}
+          <LanguageSwitcher />
+
           <button className="bg-primary-container text-on-primary-container px-6 py-2 rounded-xl text-label-md font-label-md font-bold transition-all active:scale-95 duration-150 ease-in-out">
-            Get Started
+            {t.nav.cta}
           </button>
         </div>
 
         {/* Mobile hamburger */}
         <button
           className="md:hidden text-on-surface p-1"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-label={mobileOpen ? t.nav.closeMenu : t.nav.openMenu}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((v) => !v)}
         >
@@ -112,8 +115,12 @@ export default function Navbar({ activePage }: NavbarProps) {
               </Link>
             );
           })}
+
+          {/* Language switcher — full-width in drawer */}
+          <LanguageSwitcher compact />
+
           <button className="bg-primary-container text-on-primary-container px-6 py-3 rounded-xl text-label-md font-label-md font-bold w-full mt-2">
-            Get Started
+            {t.nav.cta}
           </button>
         </div>
       )}
