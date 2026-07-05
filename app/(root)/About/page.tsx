@@ -44,24 +44,18 @@ export default function AboutPage() {
   return (
     <>
       <Navbar activePage="about" />
-
-      {/* mesh-gradient-bg scoped to this page only, not global body */}
-      <div className="mesh-gradient-bg min-h-screen">
-        <main>
-          <AboutHero />
-          <OurStory />
-          <MissionVision />
-          <CoreValues />
-          <Leadership />
-          <AboutCTA />
-        </main>
-      </div>
-
+      <main>
+        <AboutHero />
+        <OurStory />
+        <MissionVision />
+        <CoreValues />
+        <Leadership />
+        <AboutCTA />
+      </main>
       <Footer
         tagline="Pioneering software engineering excellence in Algeria since 2021."
         columns={aboutFooterColumns}
-        showNewsletter={false}
-        copyright="© 2024 Quarcode. Engineering Excellence from Algeria."
+        copyright="© 2026 Quarcode. Engineering Excellence from Algeria."
       />
     </>
   );

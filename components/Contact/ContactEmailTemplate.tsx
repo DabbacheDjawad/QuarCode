@@ -33,8 +33,18 @@ export function ContactEmailTemplate({ fullName, email, projectType, message }: 
 
           {/* Header */}
           <Section style={header}>
-            <Text style={logoText}>Quarcode</Text>
-            <Text style={headerSub}>New Contact Form Submission</Text>
+            {/* Logo mark */}
+            <table cellPadding={0} cellSpacing={0} style={{ marginBottom: "14px" }}>
+              <tbody>
+                <tr>
+                  <td style={logoMark}>&lt;/&gt;</td>
+                  <td style={{ paddingLeft: "10px", verticalAlign: "middle" }}>
+                    <Text style={logoText}>Quarcode</Text>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <Text style={headerSub}>New contact form submission</Text>
           </Section>
 
           {/* Sender meta */}
@@ -56,7 +66,9 @@ export function ContactEmailTemplate({ fullName, email, projectType, message }: 
           {/* Message body */}
           <Section style={section}>
             <Heading as="h2" style={h2}>Message</Heading>
-            <Text style={messageText}>{message}</Text>
+            <div style={messageBox}>
+              <Text style={messageText}>{message}</Text>
+            </div>
           </Section>
 
           <Hr style={hr} />
@@ -66,7 +78,7 @@ export function ContactEmailTemplate({ fullName, email, projectType, message }: 
             <Text style={footerText}>
               This email was sent via the contact form on{" "}
               <a href="https://quarcode.dz" style={link}>quarcode.dz</a>.
-              Reply directly to this email to respond to {fullName}.
+              Reply directly to respond to {fullName}.
             </Text>
           </Section>
         </Container>
@@ -75,7 +87,7 @@ export function ContactEmailTemplate({ fullName, email, projectType, message }: 
   );
 }
 
-// ── Small helper component ────────────────────────────────────────────────────
+// ── Helper ────────────────────────────────────────────────────────────────────
 
 function MetaRow({ label, value }: { label: string; value: string }) {
   return (
@@ -86,103 +98,128 @@ function MetaRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-// ── Inline styles (email clients ignore external CSS) ─────────────────────────
+// ── Inline styles ─────────────────────────────────────────────────────────────
 
 const body: React.CSSProperties = {
-  backgroundColor: "#0f0f14",
+  backgroundColor: "#07080f",
   fontFamily: "'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif",
   margin: 0,
-  padding: "40px 0",
+  padding: "48px 0",
 };
 
 const container: React.CSSProperties = {
-  backgroundColor: "#1a1a24",
-  border: "1px solid #2e2e3d",
-  borderRadius: "12px",
+  backgroundColor: "#0e0f1a",
+  border: "1px solid rgba(255,255,255,0.07)",
+  borderRadius: "16px",
   margin: "0 auto",
-  maxWidth: "600px",
+  maxWidth: "580px",
   overflow: "hidden",
 };
 
 const header: React.CSSProperties = {
-  background: "linear-gradient(135deg, #2e5bff 0%, #7c3aed 100%)",
-  padding: "32px 40px 28px",
+  background: "linear-gradient(135deg, #4f6eff 0%, #8b5cf6 100%)",
+  padding: "28px 36px 24px",
+};
+
+const logoMark: React.CSSProperties = {
+  backgroundColor: "rgba(255,255,255,0.15)",
+  borderRadius: "7px",
+  color: "#ffffff",
+  fontFamily: "'Courier New', monospace",
+  fontSize: "13px",
+  fontWeight: "700",
+  letterSpacing: "-1px",
+  padding: "4px 7px",
+  verticalAlign: "middle",
 };
 
 const logoText: React.CSSProperties = {
   color: "#ffffff",
-  fontSize: "22px",
+  fontSize: "18px",
   fontWeight: "800",
-  letterSpacing: "-0.5px",
-  margin: "0 0 4px",
+  letterSpacing: "-0.4px",
+  margin: 0,
+  verticalAlign: "middle",
 };
 
 const headerSub: React.CSSProperties = {
-  color: "rgba(255,255,255,0.75)",
-  fontSize: "13px",
+  color: "rgba(255,255,255,0.65)",
+  fontFamily: "'Courier New', monospace",
+  fontSize: "11px",
   fontWeight: "500",
+  letterSpacing: "0.1em",
   margin: 0,
   textTransform: "uppercase",
-  letterSpacing: "0.08em",
 };
 
 const section: React.CSSProperties = {
-  padding: "28px 40px",
+  padding: "28px 36px",
 };
 
 const h2: React.CSSProperties = {
-  color: "#e2e2f0",
-  fontSize: "14px",
+  color: "#4f6eff",
+  fontFamily: "'Courier New', monospace",
+  fontSize: "11px",
   fontWeight: "700",
-  letterSpacing: "0.06em",
+  letterSpacing: "0.12em",
   margin: "0 0 16px",
   textTransform: "uppercase",
 };
 
 const metaLabel: React.CSSProperties = {
-  color: "#8888aa",
-  fontSize: "13px",
+  color: "#4b4c6a",
+  fontFamily: "'Courier New', monospace",
+  fontSize: "12px",
   fontWeight: "500",
   paddingBottom: "10px",
-  paddingRight: "16px",
+  paddingRight: "20px",
   verticalAlign: "top",
   whiteSpace: "nowrap",
   width: "110px",
 };
 
 const metaValue: React.CSSProperties = {
-  color: "#d4d4f0",
+  color: "#f0f1ff",
   fontSize: "14px",
+  fontWeight: "500",
   paddingBottom: "10px",
   verticalAlign: "top",
 };
 
+const messageBox: React.CSSProperties = {
+  backgroundColor: "#13141f",
+  border: "1px solid rgba(255,255,255,0.07)",
+  borderRadius: "10px",
+  padding: "16px 20px",
+};
+
 const messageText: React.CSSProperties = {
-  color: "#c8c8e8",
-  fontSize: "15px",
-  lineHeight: "1.7",
+  color: "#8889a8",
+  fontSize: "14px",
+  lineHeight: "1.75",
   margin: 0,
   whiteSpace: "pre-wrap",
 };
 
 const hr: React.CSSProperties = {
-  borderColor: "#2e2e3d",
+  borderColor: "rgba(255,255,255,0.06)",
   borderWidth: "1px",
-  margin: "0 40px",
+  margin: "0 36px",
 };
 
 const footerSection: React.CSSProperties = {
-  padding: "20px 40px 28px",
+  padding: "18px 36px 26px",
 };
 
 const footerText: React.CSSProperties = {
-  color: "#55556a",
-  fontSize: "12px",
+  color: "#4b4c6a",
+  fontFamily: "'Courier New', monospace",
+  fontSize: "11px",
   lineHeight: "1.6",
   margin: 0,
 };
 
 const link: React.CSSProperties = {
-  color: "#2e5bff",
+  color: "#4f6eff",
   textDecoration: "none",
 };

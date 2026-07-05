@@ -1,4 +1,3 @@
-// components/FAQ/FAQShell.tsx
 "use client";
 
 import { useState } from "react";
@@ -21,7 +20,7 @@ export default function FaqShell({ items }: Props) {
       : items.filter((i) => i.category === activeCategory);
 
   return (
-    <section className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter pb-section-gap">
+    <section className="max-w-[1280px] mx-auto px-10 grid grid-cols-1 lg:grid-cols-12 gap-8 pb-[100px]">
       <FaqSidebar active={activeCategory} onChange={setActiveCategory} />
       <div className="lg:col-span-9">
         <FaqAccordion items={filtered} />

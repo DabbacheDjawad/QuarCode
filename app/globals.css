@@ -7,6 +7,13 @@
 
 /* ── Design tokens ───────────────────────────────────────────────────────── */
 @theme {
+  /* Keyframes and Animations added from config */
+  --animate-blink: blink 1s steps(1) infinite;
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
   /* Colors — Material 3 dark palette */
   --color-on-background:              #e0e3e5;
   --color-surface-variant:            #323537;

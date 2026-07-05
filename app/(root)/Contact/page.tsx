@@ -1,4 +1,3 @@
-// app/contact/page.tsx
 "use client";
 
 import Navbar from "@/components/Navbar";
@@ -16,24 +15,21 @@ export default function ContactPage() {
     <>
       <Navbar activePage="contact" />
 
-      <div className="mesh-bg min-h-screen selection:bg-primary/30">
-        <main className="pt-32 pb-section-gap">
-          <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-            <ContactHero />
+      <main className="pt-[140px] pb-[100px]">
+        <div className="max-w-[1280px] mx-auto px-10">
+          <ContactHero />
 
-            {/* 12-column grid: form takes 7 cols, sidebar takes 5 */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
-              <ContactForm />
-              <ContactSidebar />
-            </div>
+          {/* 12-col grid: form 7 cols, sidebar 5 */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <ContactForm />
+            <ContactSidebar />
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
 
       <Footer
         tagline={cp.footerTagline}
         columns={cp.footerColumns}
-        showNewsletter={false}
         copyright={cp.footerCopyright}
       />
     </>

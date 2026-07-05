@@ -80,7 +80,6 @@ export default function FaqPage() {
 
       <Footer
         columns={fp.footerColumns}
-        showNewsletter={false}
         tagline={fp.footerTagline}
         copyright={fp.footerCopyright}
       />

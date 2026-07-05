@@ -1,10 +1,7 @@
-// components/Navbar.tsx
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import Icon from "./Icon";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
@@ -29,48 +26,47 @@ export default function Navbar({ activePage }: NavbarProps) {
     setMobileOpen(false);
   }, [activePage]);
 
-  // Build nav links from translations
   type NavLink = { href: string; label: string; page: Page };
   const navLinks: NavLink[] = [
-    { href: "/Services", label: t.nav.services, page: "services" },
-    { href: "/About",    label: t.nav.about,    page: "about"    },
-    { href: "/Pricings", label: t.nav.pricing,  page: "pricing"  },
-    { href: "/Contact",  label: t.nav.contact,  page: "contact"  },
+    { href: "/Services",  label: t.nav.services, page: "services" },
+    { href: "/About",     label: t.nav.about,    page: "about"    },
+    { href: "/Pricings",  label: t.nav.pricing,  page: "pricing"  },
+    { href: "/Contact",   label: t.nav.contact,  page: "contact"  },
   ];
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant/30 transition-all duration-300 ${
-        scrolled ? "bg-background/95" : ""
-      }`}
+      className={`
+        fixed top-0 w-full z-50 transition-all duration-300
+        bg-[#07080f]/85 backdrop-blur-xl
+        border-b border-white/[0.06]
+        ${scrolled ? "bg-[#07080f]/95" : ""}
+      `}
     >
-      <div className="flex justify-between items-center max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-4">
+      <div className="flex justify-between items-center max-w-[1280px] mx-auto px-10 h-[60px]">
+
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3">
-          <Image
-            alt="Quarcode logo"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfHAj1frqBT2u6P3OiWJjdfztKszxzHmGMuPMN9y5sWa01YbZn4e28h34_uvfAuZV8XA6jAn3Ec3u8Y7LWhzxUdZ2ETvMtzQhnabQVR05pTyssHY5s96m8wHmbHhtH0eZ6BK7738vaUjTPVxs1sQ488tTcckdtXrSpGwa9j6ZEmSjBph03mQtu67_lvRP46zi0pwkTqZ62CqDFmGV26vmqHYtJPrmdqfyPHfOvZjDtJTBhlf8aL-a_FQkkMu_xhiMTCCCOxgg1IbNK"
-            width={32}
-            height={32}
-            className="h-8 w-auto"
-          />
-          <span className="text-headline-sm font-headline-sm font-bold tracking-tight text-on-surface">
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <div className="w-7 h-7 rounded-[7px] bg-gradient-to-br from-[#4f6eff] to-[#8b5cf6] flex items-center justify-center font-mono text-[13px] font-bold text-white tracking-tighter">
+            {"</>"}
+          </div>
+          <span className="text-[16px] font-bold tracking-[-0.3px] text-[#f0f1ff]">
             Quarcode
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex gap-8 items-center">
+        <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => {
             const isActive = activePage === link.page;
             return (
               <Link
                 key={link.page}
                 href={link.href}
-                className={`text-label-md font-label-md transition-colors ${
+                className={`text-[13.5px] tracking-[0.01em] transition-colors duration-150 ${
                   isActive
-                    ? "text-primary border-b-2 border-primary pb-1"
-                    : "text-on-surface-variant hover:text-primary"
+                    ? "text-[#4f6eff]"
+                    : "text-[#8889a8] hover:text-[#f0f1ff]"
                 }`}
               >
                 {link.label}
@@ -78,28 +74,31 @@ export default function Navbar({ activePage }: NavbarProps) {
             );
           })}
 
-          {/* Language switcher */}
           <LanguageSwitcher />
-
-          <button className="bg-primary-container text-on-primary-container px-6 py-2 rounded-xl text-label-md font-label-md font-bold transition-all active:scale-95 duration-150 ease-in-out">
-            {t.nav.cta}
-          </button>
         </div>
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-on-surface p-1"
+          className="md:hidden text-[#f0f1ff] p-1"
           aria-label={mobileOpen ? t.nav.closeMenu : t.nav.openMenu}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((v) => !v)}
         >
-          <Icon name={mobileOpen ? "close" : "menu"} />
+          {mobileOpen ? (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          ) : (
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M3 12h18M3 6h18M3 18h18"/>
+            </svg>
+          )}
         </button>
       </div>
 
       {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-md border-t border-outline-variant/20 px-margin-mobile py-6 flex flex-col gap-5">
+        <div className="md:hidden bg-[#07080f]/95 backdrop-blur-xl border-t border-white/[0.06] px-10 py-6 flex flex-col gap-5">
           {navLinks.map((link) => {
             const isActive = activePage === link.page;
             return (
@@ -107,19 +106,16 @@ export default function Navbar({ activePage }: NavbarProps) {
                 key={link.page}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className={`text-label-md font-label-md transition-colors ${
-                  isActive ? "text-primary" : "text-on-surface-variant"
+                className={`text-[14px] transition-colors ${
+                  isActive ? "text-[#4f6eff]" : "text-[#8889a8]"
                 }`}
               >
                 {link.label}
               </Link>
             );
           })}
-
-          {/* Language switcher — full-width in drawer */}
           <LanguageSwitcher compact />
-
-          <button className="bg-primary-container text-on-primary-container px-6 py-3 rounded-xl text-label-md font-label-md font-bold w-full mt-2">
+          <button className="bg-[#4f6eff] text-white px-6 py-3 rounded-lg text-[13px] font-semibold w-full mt-1">
             {t.nav.cta}
           </button>
         </div>
