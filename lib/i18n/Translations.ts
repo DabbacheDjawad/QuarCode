@@ -132,10 +132,10 @@ export const translations = {
         {
           heading: "Connect",
           links: [
-            { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
-            { label: "Twitter / X", href: "#" },
-            { label: "Dribbble", href: "#" },
+            
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
       ],
@@ -168,10 +168,10 @@ export const translations = {
         {
           heading: "Connect",
           links: [
-            { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
-            { label: "Twitter", href: "#" },
-            { label: "Facebook", href: "#" },
+            
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
         {
@@ -278,8 +278,8 @@ export const translations = {
         {
           heading: "Social",
           links: [
-            { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
+            
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
           ],
         },
       ],
@@ -360,8 +360,8 @@ export const translations = {
         {
           heading: "Connect",
           links: [
-            { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
+            
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
           ],
         },
       ],
@@ -575,9 +575,10 @@ export const translations = {
         {
           heading: "Connect",
           links: [
-            { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
-            { label: "Twitter / X", href: "#" },
+            
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
         {
@@ -1306,10 +1307,10 @@ export const translations = {
         {
           heading: "Réseaux",
           links: [
-            { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
-            { label: "Twitter / X", href: "#" },
-            { label: "Dribbble", href: "#" },
+            
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
       ],
@@ -1341,10 +1342,10 @@ export const translations = {
         {
           heading: "Réseaux",
           links: [
-            { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
-            { label: "Twitter", href: "#" },
-            { label: "Facebook", href: "#" },
+            
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
         {
@@ -1449,8 +1450,10 @@ export const translations = {
         {
           heading: "Réseaux",
           links: [
-            { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
+            
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
           ],
         },
       ],
@@ -1529,8 +1532,10 @@ export const translations = {
         {
           heading: "Réseaux",
           links: [
-            { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
+            
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },  
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
       ],
@@ -1748,8 +1753,9 @@ export const translations = {
           heading: "Réseaux",
           links: [
             { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
-            { label: "Twitter / X", href: "#" },
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
         {
@@ -2480,9 +2486,9 @@ export const translations = {
           heading: "تواصل",
           links: [
             { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
-            { label: "Twitter / X", href: "#" },
-            { label: "Dribbble", href: "#" },
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
       ],
@@ -2513,9 +2519,9 @@ export const translations = {
           heading: "تواصل",
           links: [
             { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
-            { label: "Twitter", href: "#" },
-            { label: "Facebook", href: "#" },
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
         {
@@ -2617,7 +2623,9 @@ export const translations = {
           heading: "تواصل اجتماعي",
           links: [
             { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
       ],
@@ -2694,7 +2702,9 @@ export const translations = {
           heading: "تواصل",
           links: [
             { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" },
           ],
         },
       ],
@@ -2904,8 +2914,9 @@ export const translations = {
           heading: "تواصل",
           links: [
             { label: "LinkedIn", href: "#" },
-            { label: "GitHub", href: "#" },
-            { label: "Twitter / X", href: "#" },
+            { label: "GitHub", href: "https://github.com/DabbacheDjawad" },
+            { label: "Instagram", href: "https://www.instagram.com/quarcodeagency/" },
+            { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61591658214352" }
           ],
         },
         {
