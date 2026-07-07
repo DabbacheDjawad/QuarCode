@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useRef, useEffect } from "react";
+import { useActionState, useRef, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { sendContactEmail, type FormState } from "@/app/(root)/actions/sendContactEmail";
 
@@ -101,18 +102,65 @@ function FormField({
   );
 }
 
+// ── Matches the ?service= param against the translated projectTypes list ──────
+// e.g. "Website Development" → "Web Development"
+// Strategy: exact → first-keyword-prefix → substring fallback
+function resolveProjectType(serviceParam: string, projectTypes: readonly string[]): string {
+  const fallback = projectTypes[0] ?? "";
+  if (!serviceParam) return fallback;
+  const param = serviceParam.toLowerCase();
+
+  // 1. Exact
+  const exact = projectTypes.find((pt) => pt.toLowerCase() === param);
+  if (exact) return exact;
+
+  // 2. Keyword prefix — "website" starts with "web", so "Website Development"
+  //    matches "Web Development"
+  const paramWords = param.split(/\s+/);
+  const byKeyword = projectTypes.find((pt) =>
+    pt.toLowerCase().split(/\s+/).some((pw) =>
+      paramWords.some((aw) => aw.startsWith(pw) || pw.startsWith(aw))
+    )
+  );
+  if (byKeyword) return byKeyword;
+
+  // 3. Substring
+  const bySub = projectTypes.find(
+    (pt) => pt.toLowerCase().includes(param) || param.includes(pt.toLowerCase())
+  );
+  return bySub ?? fallback;
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function ContactForm() {
   const { t, locale } = useLanguage();
   const f = t.contactForm;
+  const searchParams = useSearchParams();
+
+  const serviceParam = searchParams.get("service") ?? "";
+
+  // Controlled select — useState guarantees React owns the value after
+  // hydration, so the pre-selection is never silently dropped.
+  const [projectType, setProjectType] = useState<string>(() =>
+    resolveProjectType(serviceParam, f.projectTypes)
+  );
 
   const [state, formAction, isPending] = useActionState(sendContactEmail, initialState);
   const formRef = useRef<HTMLFormElement>(null);
 
+  // Keep the select in sync if the user navigates between service cards
+  // without a full page reload (Next.js soft navigation).
   useEffect(() => {
-    if (state.status === "success") formRef.current?.reset();
-  }, [state.status]);
+    setProjectType(resolveProjectType(serviceParam, f.projectTypes));
+  }, [serviceParam, f.projectTypes]);
+
+  useEffect(() => {
+    if (state.status === "success") {
+      formRef.current?.reset();
+      setProjectType(f.projectTypes[0] ?? "");
+    }
+  }, [state.status, f.projectTypes]);
 
   return (
     <div
@@ -159,6 +207,20 @@ export default function ContactForm() {
       <form ref={formRef} action={formAction} className="flex flex-col gap-0">
         <input type="hidden" name="locale" value={locale} />
 
+        {/* Pre-selected service indicator */}
+        {serviceParam && (
+          <div
+            className="mb-5 flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-[#4f6eff]/20 text-[13px] text-[#8889a8]"
+            style={{ background: "rgba(79,110,255,0.06)" }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#4f6eff] flex-shrink-0" />
+            <span>
+              Enquiring about{" "}
+              <span className="font-semibold text-[#f0f1ff]">{serviceParam}</span>
+            </span>
+          </div>
+        )}
+
         {/* Name + Email */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <FormField
@@ -187,6 +249,8 @@ export default function ContactForm() {
             id="projectType"
             name="projectType"
             disabled={isPending}
+            value={projectType}
+            onChange={(e) => setProjectType(e.target.value)}
             className={`
               bg-[#13141f] border rounded-[9px]
               px-3.5 py-[11px] text-[14px] text-[#8889a8]
@@ -200,7 +264,7 @@ export default function ContactForm() {
             `}
           >
             {f.projectTypes.map((type) => (
-              <option key={type}>{type}</option>
+              <option key={type} value={type}>{type}</option>
             ))}
           </select>
           {state.fieldErrors?.projectType && (

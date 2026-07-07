@@ -194,14 +194,20 @@ function ServiceCard({ s, getAQuote }: { s: StyledService; getAQuote: string }) 
       )}
 
       {/* CTA */}
-      <div className="mt-auto pt-4">
+      <div className="mt-auto pt-4 flex items-center gap-4">
         <Link
-          href="/Contact"
+          href={`/Services/${s.id}`}
           className="inline-flex items-center gap-2 text-[13px] font-semibold transition-all duration-200 group-hover:gap-3"
           style={{ color: s.accentHex }}
         >
-          {getAQuote}
+          Learn more
           {Arrow && <Arrow color={s.accentHex} />}
+        </Link>
+        <Link
+          href={`/Contact?service=${encodeURIComponent(s.title)}`}
+          className="text-[12.5px] text-[#4b4c6a] hover:text-[#8889a8] transition-colors font-mono"
+        >
+          {getAQuote} →
         </Link>
       </div>
     </div>
